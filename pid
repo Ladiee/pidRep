@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main(int argc, char *argv[])  {
+  argc = 2;
+  //Recebe o n° de processos que serão criados
+  int n = strtol(argv[1], NULL, 10);
+  //Pega o PID do processo pai
+  pid_t paiPid = getpid();  
+  int i = 1;
+  pid_t pid1;
+
+  while (i <= n){
+
+    // Se PID atual for igual ao PID do pai, o processo é o pai
+    if (getpid() == paiPid){ 
+
+      //Mostra o valor de i
+      printf("i = %d\n", i);
+      pid1 = fork();
+      i++;
+    }
+    else{
+      printf("Rapaz");
+      execl("./hello_world", "hello_world", NULL);
+    }
+  }
+  return 0;
+}
